@@ -38,7 +38,7 @@ It is, perhaps unsurprisingly, much easier to predict whether a restaurant serve
 The most important factors predicting classification under "Ethnic Food" are the number of reviews and the average star count.
 ![](figs/phoenix_eth_impt.png)
 The average star count was higher by about 0.6 for restaurants classified as serving ethnic food.  Number of reviews was another important feature. Ethnic restaurants were clustered at the lower end of the range for number of reviews. While most non-ethnic restaurants were also in the same range, there was more of a "long tail" of non-ethnic restaurants in the higher end of the range.
-![Normalized histogram representing review counts for ethnic and non-ethnic restaurants in Phoenix. Note logarithmic y-scale.](figs/'phoenix_eth_review-count.png ')
+![Normalized histogram representing review counts for ethnic and non-ethnic restaurants in Phoenix. Note logarithmic y-scale.](figs/'phoenix_eth_review-count.png')
 
 Ethnic restaurants in Phoenix are also less likely to serve alcohol or have outdoor seating. When they do serve alcohol, they are much more likely to serve beer and wine, than to have a full bar. Non-ethnic restaurants are more likely to serve alcohol in general, but also much more likely to have a  full bar than to serve only beer and wine.
 ![](figs/'phoenix_eth_alcohol.png')
