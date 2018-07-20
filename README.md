@@ -12,7 +12,7 @@ The data file was converted from JSON to CSV format using the conversion script 
 
 ## Prerequisites ##
 
-I processed the data using a Python script. To run the code, you need the Python packages csv, ast, numpy, scikit-learn, Pandas, xgboost, seaborn, and matplotlib.
+I processed the data using a Python 2.7 script. To run the code, you need the Python packages csv, ast, numpy, scikit-learn, Pandas, xgboost, seaborn, and matplotlib.
 
 
 ## Scripts ##
@@ -40,7 +40,7 @@ The most important factors predicting classification under "Ethnic Food" are the
 The average star count was higher by about 0.6 for restaurants classified as serving ethnic food.  Number of reviews was another important feature. Ethnic restaurants were clustered at the lower end of the range for number of reviews. While most non-ethnic restaurants were also in the same range, there was more of a "long tail" of non-ethnic restaurants in the higher end of the range.
 ![Normalized histogram representing review counts for ethnic and non-ethnic restaurants in Phoenix. Note logarithmic y-scale.](figs/phoenix_eth_review-count.png)
 
-Ethnic restaurants in Phoenix are also less likely to serve alcohol or have outdoor seating. When they do serve alcohol, they are much more likely to serve beer and wine, than to have a full bar. Non-ethnic restaurants are more likely to serve alcohol in general, but also much more likely to have a  full bar than to serve only beer and wine.
+Ethnic restaurants in Phoenix are also less likely to serve alcohol or have outdoor seating. When they do serve alcohol, they are much more likely to serve beer and wine than to have a full bar. Non-ethnic restaurants are more likely to serve alcohol in general, but also much more likely to have a  full bar than to serve only beer and wine.
 ![](figs/phoenix_eth_alcohol.png)
 
 ### Mediterranean Food ###
@@ -58,7 +58,7 @@ Like ethnic restaurants, Mediterranean restaurants were more likely to be have f
 
 New American is an interesting category to scope out because it has a particularly ambiguous meaning. Some commentators have referred to it as a ["catchall term for any cuisine that defies categorization"](http://www.chicagotribune.com/dining/ct-food-what-is-new-american-story.html), while others define it as ["modernized" American food with global influences, though stemming from French nouvelle cuisine](http://www.slate.com/articles/life/food/2015/06/new_american_food_is_un_american_derivative_and_bland.html). Wikipedia suggests that it is ["predominantly served at upscale fine dining restaurants"](https://en.wikipedia.org/wiki/New_American_cuisine) (these links accessed on June 5, 2017).
 
-True to this cornucopia of definitions, New American is the hardest category to predict among those that I've investigated, having a higher loss than the Mediterranean, ethnic, or Italian categories. I trained my model on restaurants in Pittsburgh and obtained a log loss of 0.333. This is still significantly better than chance, though. The most important factors leading to a restaurant being classified as New American are as follows: number of reviews, being good for kids, having table service, and number of stars.
+True to this cornucopia of definitions, New American is the hardest category to predict among those that I've investigated, having a higher loss than the Mediterranean, ethnic, or Italian categories. I trained my model on restaurants in Pittsburgh and obtained a log loss of 0.333. This is still significantly better than chance, though. The most important factors that help predict a restaurant being classified as New American are as follows: number of reviews, being good for kids, having table service, and number of stars.
 ![](figs/pgh_newam_impt.png)
 
 New American restaurants were more likely to have fewer stars than other restaurants. This result was somewhat surprising to me. They were more likely to have table service, which fits with the description of them being "upscale". They were more likely to have a higher number of reviews.
@@ -68,8 +68,8 @@ New American restaurants were more likely to have fewer stars than other restaur
 
 ### Transfer Learning ###
 
-The multinational, multi-region data suggests some interesting questions about whether categories of restaurants transfer across regions. For example, it's plausible that "Italian" food does not have the same meaning in North America as it does in Europe. This hypothesis was confirmed when I trained XGBoost to predict Italian restaurants on the Toronto data, and then tested the model on other cities. On Toronto, I obtained a log loss of about 0.246. This model obtained similar losses, or lower, on all other cities in North America except Pittsburgh and Montreal, where it incurred a loss of ~0.3. The loss on Edinburgh was similar to Montreal's, while the loss on Stuttgart was much higher, at 0.529. This suggests that "Italian food" is a category that is different in Anglophone compared to non-Anglophone countries, although this leaves the Pittsburgh anomaly unexplained.
+The multinational, multi-region data suggests some interesting questions about whether categories of restaurants transfer across regions. For example, it's plausible that "Italian" food does not have the same meaning in North America as it does in Europe. This hypothesis was confirmed when I trained XGBoost to predict Italian restaurants on the Toronto data, and then tested the model on other cities. On Toronto, I obtained a log loss of about 0.246. This model obtained similar losses, or lower, on all other cities in North America except Pittsburgh and Montreal, where it incurred a loss of ~0.3. The loss on Edinburgh was similar to Montreal's, while the loss on Stuttgart was much higher, at 0.529. This suggests that "Italian food" is a category that is differently stereotyped in Anglophone compared to non-Anglophone countries, although this leaves the Pittsburgh anomaly unexplained.
 
-The ethnic restaurant model trained on Phoenix data performed with low losses everywhere in North America and in Edinburgh where there were sufficient numbers of "ethnic" restaurants. There were not restaurants classified as "ethnic" in Montreal or Stuttgart to get reliable statistics. From this we can infer that it is reasonable to assume a "North American" and perhaps "Anglophone" notion of what ethnic restaurants are like in their non-food characteristics.
+The ethnic restaurant model trained on Phoenix data performed with low losses everywhere in North America and in Edinburgh where there were sufficient numbers of "ethnic" restaurants. There were not enough restaurants classified as "ethnic" in Montreal or Stuttgart to get reliable statistics. From this we can infer that it is reasonable to assume a "North American" and perhaps "Anglophone" notion of what ethnic restaurants are like in their non-food characteristics.
 
 Mediterranean restaurants were also similarly susceptible to transfer learning---and this was a category in which we did have enough statistics in non-Anglophone areas. The model, trained on the Vegas set, had a loss of 0.103, and every other city that the model was tested on, including Stuttgart, Montreal, and Edinburgh, incurred a loss of at most 0.16. In fact Madison was the city on which the model had the highest loss, and Stuttgart was in the middle of the range in terms of loss. Mediterranean restaurants, then, might appear to be a relatively transferable category in North America and Europe. It would be interesting to investigate the social reasons behind this.
